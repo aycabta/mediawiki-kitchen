@@ -13,7 +13,7 @@ end
 
 service "php5-fpm" do
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :start]
+  action [:enable, :reload]
 end
 
 template "nginx.conf" do
@@ -27,6 +27,6 @@ end
 
 service "nginx" do
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :start]
+  action [:enable, :restart]
 end
 
