@@ -1,0 +1,8 @@
+; configuration for php <%= @name %> module
+<% @extensions.each do |filepath, zend| -%>
+extension=<%= filepath %>
+<% end -%>
+<% @directives.each do |k,v| -%>
+<%= "#{@name}.#{k}=\"#{v}\"" %>
+<% end -%>
+

@@ -1,0 +1,35 @@
+{
+    "system" : {
+        "user" : "vagrant",
+        "group" : "vagrant"
+    },
+    "hostname_of_url" : "googologolo",
+    "nginx" : {
+        "port" : 80
+    },
+    "mysql" : {
+        "database_name" : "googologolo",
+        "username" : "googologolo",
+        "password" : "passw0rd!",
+        "server_debian_password" : "iloverandompasswordsbutthiswilldo",
+        "server_root_password" : "iloverandompasswordsbutthiswilldo",
+        "server_repl_password" : "iloverandompasswordsbutthiswilldo"
+    },
+    "mediawiki" : {
+        "directory" : "/var/www/mediawiki",
+        "adminuser" : "bigbrother",
+        "lang" : "ja",
+        "wikiname" : "googologolo",
+        "wgDBname" : "googologolo",
+        "wgDBuser" : "googologolo"
+    },
+    "php" : {
+        "ext_conf_dir" : "/etc/php5/conf.d"
+    },
+    "run_list" : [
+        "mysql::server",
+        "mediawiki",
+        "nginx"
+    ]
+}
+
