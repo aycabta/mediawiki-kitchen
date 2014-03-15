@@ -58,14 +58,14 @@ unless File.exists?(local_file)
   remote_file local_file do
     source "http://download.wikimedia.org/mediawiki/1.22/mediawiki-1.22.2.tar.gz"
     owner node[:system][:user]
-    group node[:system][:user]
+    group node[:system][:group]
     mode 00755
   end
 end
 
 directory node[:mediawiki][:directory] do
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode 00755
   action :create
   recursive true
@@ -76,33 +76,33 @@ execute "untar-mediawiki" do
   command "tar --strip-components 1 -xzf #{local_file}"
   creates "#{node[:mediawiki][:directory]}/api.php"
   user node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
 end
 
 directory "#{node[:mediawiki][:directory]}/config" do
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode "0755"
   only_if {node[:mediawiki][:access2config_folder]=="true"}
 end
 
 directory "#{node[:mediawiki][:directory]}/mw-config" do
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode "0755"
   only_if {node[:mediawiki][:access2config_folder]=="true"}
 end
 
 directory "#{node[:mediawiki][:directory]}/config" do
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode "0400"
   only_if {node[:mediawiki][:access2config_folder]=="false"}
 end
 
 directory "#{node[:mediawiki][:directory]}/mw-config" do
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode "0400"
   only_if {node[:mediawiki][:access2config_folder]=="false"}
 end
@@ -152,7 +152,7 @@ end
 template "#{node[:mediawiki][:directory]}/LocalSettings.php" do
   source "LocalSettings.php.erb"
   owner node[:system][:user]
-  group node[:system][:user]
+  group node[:system][:group]
   mode "0644"
 end
 
