@@ -34,6 +34,15 @@ execute "install pear net_smtp package" do
 end
 
 package "php-apc"
+
+directory "#{node[:php][:ext_conf_dir]}" do
+  owner "root"
+  group "root"
+  mode "0655"
+  action :create
+  recursive true
+end
+
 template "#{node[:php][:ext_conf_dir]}/apc.ini" do
   source "apc.ini.erb"
   owner "root"
