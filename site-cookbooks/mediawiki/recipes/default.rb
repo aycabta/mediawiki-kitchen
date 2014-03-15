@@ -146,8 +146,8 @@ end
 bash "run install script" do
   cwd node[:mediawiki][:directory]
   code <<-EOC
-    php maintenance/install.php #{node[:mediawiki][:wikiname]} #{node[:mediawiki][:wgDBpassword]} \
-      --pass #{node[:mediawiki][:dbAdminPass]} --scriptpath '/wiki' --lang #{node[:mediawiki][:lang]} \
+    php maintenance/install.php #{node[:mediawiki][:wgSitename]} #{node[:mediawiki][:adminuser]} \
+      --pass #{node[:mediawiki][:wgSecretKey]} --scriptpath '/wiki' --lang #{node[:mediawiki][:wgLanguageCode]} \
       --dbname #{node[:mediawiki][:wgDBname]} --dbuser #{node[:mediawiki][:wgDBuser]} --dbpass #{node[:mediawiki][:wgDBpassword]}
   EOC
   creates "#{node[:mediawiki][:directory]}/LocalSettings.php" 

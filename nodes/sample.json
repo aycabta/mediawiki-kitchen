@@ -18,8 +18,8 @@
     "mediawiki" : {
         "directory" : "/var/www/mediawiki",
         "adminuser" : "bigbrother",
-        "lang" : "ja",
-        "wikiname" : "googologolo",
+        "wgLanguageCode" : "ja",
+        "wgSitename" : "googologolo",
         "wgDBname" : "googologolo",
         "wgDBuser" : "googologolo"
     },
