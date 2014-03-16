@@ -81,6 +81,15 @@ execute "untar-mediawiki" do
   creates "#{node[:mediawiki][:directory]}/api.php"
   user node[:system][:user]
   group node[:system][:group]
+  notifies :run, "bash[remove sample LocalSettings.php]", :immediately
+end
+
+bash "remove sample LocalSettings.php" do
+  only_if do
+    File.exists?("#{node[:mediawiki][:directory]}/LocalSettings.php")
+  end
+  code "rm #{node[:mediawiki][:directory]}/LocalSettings.php"
+  action :nothing
 end
 
 directory "#{node[:mediawiki][:directory]}/config" do
@@ -150,7 +159,10 @@ bash "run install script" do
       --pass #{node[:mediawiki][:wgSecretKey]} --scriptpath '/wiki' --lang #{node[:mediawiki][:wgLanguageCode]} \
       --dbname #{node[:mediawiki][:wgDBname]} --dbuser #{node[:mediawiki][:wgDBuser]} --dbpass #{node[:mediawiki][:wgDBpassword]}
   EOC
-  creates "#{node[:mediawiki][:directory]}/LocalSettings.php" 
+  not_if do
+    File.exists?("#{node[:mediawiki][:directory]}/LocalSettings.php")
+  end
+  notifies :create, "template[#{node[:mediawiki][:directory]}/LocalSettings.php]", :immediately
 end
 
 template "#{node[:mediawiki][:directory]}/LocalSettings.php" do
@@ -158,5 +170,6 @@ template "#{node[:mediawiki][:directory]}/LocalSettings.php" do
   owner node[:system][:user]
   group node[:system][:group]
   mode "0644"
+  action :nothing
 end
 
